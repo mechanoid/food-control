@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node -r dotenv/config bin/food-control.js",
+    "dev:generate-self-signed-certs": "mkdir certs; openssl req -nodes -new -x509 -keyout certs/server.key -out certs/server.cert"
   },
   "author": "Falk Hoppe <falkhoppe81@gmail.com>",
   "license": "MIT",
@@ -20,5 +22,11 @@
     "eslint-plugin-standard": "^4.0.1"
   },
   "type": "module",
-  "module": "index.js"
+  "module": "index.js",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^4.1.0",
+    "morgan": "^1.10.0"
+  }
 }

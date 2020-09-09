@@ -32,7 +32,18 @@ app.use((req, res, next) => {
 
 export default config => {
   console.log('config', config)
-
+  app.get('/manifest.webmanifest', (req, res) => {
+    const startUrl = req.query.initAuth ? `${process.env.INIT_AUTH_URL}${req.query.initAuth}` : '.'
+    res.send(JSON.stringify({
+      name: 'Food Control',
+      start_url: startUrl,
+      display: 'fullscreen',
+      background_color: '#fff',
+      description: 'Control that pets snacks (in and out)',
+      lang: 'de-DE',
+      orientation: 'portrait'
+    }))
+  })
   app.get('/', async (req, res) => {
     let client
     try {

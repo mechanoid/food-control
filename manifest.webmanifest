@@ -1,7 +1,7 @@
 {
   "name": "Food Control",
   "start_url": ".",
-  "display": "minimal-ui",
+  "display": "standalone",
   "background_color": "#fff",
   "description": "What comes in, comes out..."
 }

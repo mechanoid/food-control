@@ -47,7 +47,7 @@ button[type=submit], input[type=submit]  {
 }
 
 input[type=date] {
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .row {
@@ -116,6 +116,16 @@ input[type=date] {
 }
 
 
+
+
+
+
+
+
+
+
+
+/* RANGE SLIDER, Source => https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ */
 
 input[type=range] {
   -webkit-appearance: none;

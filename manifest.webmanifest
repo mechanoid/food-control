@@ -4,5 +4,7 @@
   "start_url": ".",
   "display": "fullscreen",
   "background_color": "#fff",
-  "description": "Control that pets snacks (in and out)"
+  "description": "Control that pets snacks (in and out)",
+  "lang": "de-DE",
+  "orientation": "portrait"
 }

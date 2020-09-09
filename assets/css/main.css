@@ -11,13 +11,21 @@ input[type=range] {
   width: 100%;
 }
 
-.slider label {
+emoji-slider label {
   font-weight: bold;
   font-size: 2rem;
 }
 
-datalist {
-  display: block;
+emoji-slider .grid-item.active {
+  font-size: 10rem;
+  transform: translateY(-10%)
+}
+
+emoji-slider .grid-item {
+  font-size: 5rem;
+  text-shadow: none;
+
+  transition: font-size .5s;
 }
 
 button[type=submit], input[type=submit]  {
@@ -102,3 +110,4 @@ input[type=date] {
   width: 50%;
   height: 50%;
 }
+

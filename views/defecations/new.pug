@@ -4,13 +4,17 @@ block body
   h1 Register new 💩
 
   form(action="/defecations" method="POST")
-    datalist(id="quality-grades" style="grid-template-columns: auto auto auto;").grid
-      option(value="0" label="😭" style="font-size: 5rem; text-shadow: none;").grid-item.button-text
-      option(value="1" label="🤨" style="font-size: 5rem; text-shadow: none;").grid-item.button-text
-      option(value="2" label="😍" style="font-size: 5rem; text-shadow: none;").grid-item.button-text
+    datalist(id="quality-grades" style="grid-template-columns: auto auto auto;")
+      option(value="0" label="😭" style="font-size: 5rem; text-shadow: none;")
+      option(value="1" label="🤨" style="font-size: 5rem; text-shadow: none;")
+      option(value="2" label="😍" style="font-size: 5rem; text-shadow: none;")
 
     .row
-      .slider
+      emoji-slider
+        .grid(style="grid-template-columns: auto auto auto;")
+          .grid-item 😭
+          .grid-item 🤨
+          .grid-item 😍
         input(type="range" list="quality-grades" min="0" max="2" value="2" id="quality" name="quality")
 
 

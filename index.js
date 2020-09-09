@@ -8,22 +8,23 @@ import pool from './lib/db.js'
 import 'pug'
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
-
-const app = express()
-app.use(helmet())
-app.use(morgan('combined'))
-app.use(basicAuth({
+const authCheck = basicAuth({
   users: { dexter: '1234' },
   challenge: true,
   realm: 'food-control'
-}))
+})
+const app = express()
+app.use(helmet())
+app.use(morgan('combined'))
+
 app.use('/assets', express.static('./assets'))
+app.use('/manifest.webmanifest', express.static('./manifest.webmanifest'))
 app.set('view engine', 'pug')
 
 export default config => {
   console.log('config', config)
 
-  app.get('/', async (req, res) => {
+  app.get('/', authCheck, async (req, res) => {
     let client
     try {
       client = await pool.connect()
@@ -39,11 +40,11 @@ export default config => {
     }
   })
 
-  app.get('/defecations/new', (req, res) => {
+  app.get('/defecations/new', authCheck, (req, res) => {
     res.render('defecations/new', { date: new Date() })
   })
 
-  app.post('/defecations', urlencodedParser, async (req, res) => {
+  app.post('/defecations', authCheck, urlencodedParser, async (req, res) => {
     const { quality, date } = req.body
     console.log(quality, date)
 

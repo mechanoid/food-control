@@ -25,7 +25,7 @@ app.use((req, res, next) => {
   }
 
   return basicAuth({
-    users: { someuser: 'somepassword' },
+    users: { [process.env.BA_USER]: process.env.BA_SECRET },
     challenge: true,
     realm: 'Imb4T3st4pp'
   })(req, res, next)

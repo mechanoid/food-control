@@ -2,29 +2,37 @@ import express from 'express'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
-import basicAuth from 'express-basic-auth'
+import cookieParser from 'cookie-parser'
 import pool from './lib/db.js'
 
 import 'pug'
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
-const authCheck = basicAuth({
-  users: { dexter: '1234' },
-  challenge: true,
-  realm: 'food-control'
-})
+
 const app = express()
 app.use(helmet())
 app.use(morgan('combined'))
-
+app.use(cookieParser())
 app.use('/assets', express.static('./assets'))
 app.use('/manifest.webmanifest', express.static('./manifest.webmanifest'))
 app.set('view engine', 'pug')
 
+app.use((req, res, next) => {
+  // very poor auth, just to protect the PWA a bit.
+  if (req.query.initAuth === 'dexterbaer') {
+    res.cookie('app-secret', process.env.APP_SECRET, { httpOnly: true })
+  } else if (req.cookies['app-secret'] !== process.env.APP_SECRET) {
+    console.log('cookie auth is ok')
+    res.sendStatus(401)
+    return
+  }
+  next()
+})
+
 export default config => {
   console.log('config', config)
 
-  app.get('/', authCheck, async (req, res) => {
+  app.get('/', async (req, res) => {
     let client
     try {
       client = await pool.connect()
@@ -40,11 +48,11 @@ export default config => {
     }
   })
 
-  app.get('/defecations/new', authCheck, (req, res) => {
+  app.get('/defecations/new', (req, res) => {
     res.render('defecations/new', { date: new Date() })
   })
 
-  app.post('/defecations', authCheck, urlencodedParser, async (req, res) => {
+  app.post('/defecations', urlencodedParser, async (req, res) => {
     const { quality, date } = req.body
     console.log(quality, date)
 

@@ -2,6 +2,7 @@ import express from 'express'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
+import basicAuth from 'express-basic-auth'
 import pool from './lib/db.js'
 
 import 'pug'
@@ -11,7 +12,11 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const app = express()
 app.use(helmet())
 app.use(morgan('combined'))
-
+app.use(basicAuth({
+  users: { dexter: '1234' },
+  challenge: true,
+  realm: 'food-control'
+}))
 app.use('/assets', express.static('./assets'))
 app.set('view engine', 'pug')
 

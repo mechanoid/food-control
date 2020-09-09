@@ -1,0 +1,104 @@
+body {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+h1 {
+  text-align: center;
+}
+
+input[type=range] {
+  width: 100%;
+}
+
+.slider label {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+datalist {
+  display: block;
+}
+
+button[type=submit], input[type=submit]  {
+  background-color: #E4297C;
+  padding: 1rem;
+  border: none;
+  color: #fff;
+  width: 100%;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.center {
+  text-align: center;
+}
+
+input[type=date] {
+  font-size: 3rem;
+}
+
+.row {
+  padding: 2rem 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin: 0;
+  padding: 0;
+}
+
+.grid .grid-item {
+  list-style: none;
+  justify-self: center;
+}
+
+.button {
+  background: #F6DDD0;
+  background: linear-gradient(to bottom, #fefbe8 6%,#f6ddd0 100%);
+  border-radius: 1rem;
+  box-shadow: inset 0px 0px 22px 10px rgba(172,144,129,0.31);
+}
+
+.button-text {
+  text-decoration: none;
+  font-size: 5rem;
+  font-size: 30vw;
+  text-shadow: 1px 1px 20px #ac9081;
+  padding: 1vw 5vw;
+}
+
+.choice {
+  display: none;
+}
+
+.choice+label {
+  position: relative;
+  font-size: 5rem;
+  font-size: 30vw;
+  text-shadow: 1px 1px 20px #ac9081;
+  padding: 1vw 5vw;
+  background: #F6DDD0;
+  background: linear-gradient(to bottom, #fefbe8 6%,#f6ddd0 100%);
+  border-radius: 1rem;
+  box-shadow: inset 0px 0px 22px 10px rgba(172,144,129,0.31);
+}
+
+.choice:checked+label {
+  border: 10px solid #E4297C;
+}
+
+.choice:checked+label.good:before {
+  content: '😍';
+  position: absolute;
+  width: 50%;
+  height: 50%;
+}
+
+.choice:checked+label.bad:before {
+  content: '😭';
+  position: absolute;
+  width: 50%;
+  height: 50%;
+}

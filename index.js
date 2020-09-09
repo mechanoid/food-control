@@ -21,12 +21,13 @@ app.use((req, res, next) => {
   // very poor auth, just to protect the PWA a bit.
   if (req.query.initAuth === 'dexterbaer') {
     res.cookie('app-secret', process.env.APP_SECRET, { httpOnly: true, maxAge: 365 * 24 * 60 * 60 * 1000 })
-  } else if (req.cookies['app-secret'] !== process.env.APP_SECRET) {
+    return next()
+  } else if (req.cookies['app-secret'] === process.env.APP_SECRET) {
     console.log('cookie auth is ok')
-    res.sendStatus(401)
-    return
+    return next()
   }
-  next()
+
+  res.sendStatus(401)
 })
 
 export default config => {

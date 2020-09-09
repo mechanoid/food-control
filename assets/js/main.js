@@ -1,4 +1,4 @@
-/* global HTMLElement, customElements */
+/* global HTMLElement, customElements, window */
 const toArray = (nodes) => Array.prototype.slice.call(nodes)
 
 class EmojiSlider extends HTMLElement {
@@ -32,3 +32,14 @@ class EmojiSlider extends HTMLElement {
 }
 
 customElements.define('emoji-slider', EmojiSlider)
+
+class RefreshButton extends HTMLElement {
+  connectedCallback () {
+    this.button = this.querySelector('button')
+    this.button.addEventListener('click', e => {
+      window.location.reload()
+    })
+  }
+}
+
+customElements.define('refresh-button', RefreshButton)

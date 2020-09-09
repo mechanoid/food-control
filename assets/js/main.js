@@ -35,6 +35,10 @@ customElements.define('emoji-slider', EmojiSlider)
 
 class RefreshButton extends HTMLElement {
   connectedCallback () {
+    if (navigator.standalone) {
+      this.classList.add('active')
+    }
+
     this.button = this.querySelector('button')
     this.button.addEventListener('click', e => {
       window.location.reload()

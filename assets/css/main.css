@@ -43,14 +43,21 @@ button[type=submit], input[type=submit]  {
 }
 
 refresh-button  {
-  display: block;
-  text-align: right;
+  display: none;
+  height: 3rem;
+  position: relative;
 }
+refresh-button.active {
+  display: block;
+}
+
 refresh-button button {
   background: none;
   border: 0;
   font-size: 2rem;
-
+  position: absolute;
+  right: 0rem;
+  top: 0rem;
 }
 
 .center {

@@ -59,6 +59,7 @@ input[type=date] {
   grid-template-columns: auto auto;
   margin: 0;
   padding: 0;
+  gap: 1rem;
 }
 
 .grid .grid-item {
@@ -118,11 +119,25 @@ input[type=date] {
 
 
 
+h3 {
+  margin-top: 2rem;
+  margin-bottom: .5rem;
+  text-align: center;
+}
 
+table {
+  width: 100%;
+  border-collapse:collapse;
+  border-spacing: 0;
+}
+table td {
+  text-align: center;
+  border: 1px solid #acacac;
+}
 
-
-
-
+.overview .grid-item {
+  justify-self: stretch;
+}
 
 
 /* RANGE SLIDER, Source => https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ */

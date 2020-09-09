@@ -23,12 +23,12 @@ export default config => {
     try {
       client = await pool.connect()
       const result = await client.query('SELECT * FROM "defecations" LIMIT 300 OFFSET 0')
-      const defecations = { results: (result) ? result.rows : null }
+      const defecations = (result) ? result.rows : null
 
       res.render('index', { defecations })
     } catch (error) {
       console.error(error)
-      res.render('/defecations/new', { error })
+      res.render('index', { error })
     } finally {
       client.release()
     }
@@ -53,7 +53,7 @@ export default config => {
       res.redirect('/')
     } catch (error) {
       console.error(error)
-      res.render('/defecations/new', { error })
+      res.render('defecations/new', { error })
     } finally {
       client.release()
     }

@@ -11,10 +11,28 @@ block body
     li.button.grid-item
       a(href="#").button-text 🍿
 
-  if defecations
-    table.defecations
-      each defecation in defecations
-        tr
-          td= defecation.date
-          td= qualities[defecation.quality]
+  .overview.grid
 
+    if defecations
+      shit-tivities.grid-item
+        h3 💩-tivities
+        table.defecations
+          thead
+            th Date
+            th Quality
+          tbody
+            each defecation in defecations
+              tr
+                td= new Date(defecation.defecation_date).toLocaleDateString('de-DE')
+                td= qualities[defecation.quality]
+      snack-tivities.grid-item
+        h3 🍿-tivities
+        table.snacks
+          thead
+            th Date
+            th Snack
+          //- tbody
+          //-   each defecation in defecations
+          //-     tr
+          //-       td= new Date(defecation.defecation_date).toLocaleDateString('de-DE')
+          //-       td= qualities[defecation.quality]

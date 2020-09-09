@@ -2,6 +2,7 @@ import express from 'express'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
+import pool from './lib/db.js'
 
 import 'pug'
 
@@ -25,10 +26,25 @@ export default config => {
     res.render('defecations/new', { date: new Date() })
   })
 
-  app.post('/defecations', urlencodedParser, (req, res) => {
+  app.post('/defecations', urlencodedParser, async (req, res) => {
     const { quality, date } = req.body
     console.log(quality, date)
-    res.redirect('/')
+
+    let client
+
+    try {
+      client = await pool.connect()
+      const result = await client.query('INSERT INTO defecations(quality, defecation_date) VALUES($1, $2) RETURNING *', [quality, date])
+      const results = { results: (result) ? result.rows : null }
+      console.log(results)
+
+      res.redirect('/')
+    } catch (error) {
+      console.error(error)
+      res.render('/defecations/new', { error })
+    } finally {
+      client.release()
+    }
   })
 
   return app

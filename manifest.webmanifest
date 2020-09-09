@@ -2,7 +2,7 @@
   "name": "Food Control",
   "short_name": "FC",
   "start_url": ".",
-  "display": "minimal-ui",
+  "display": "fullscreen",
   "background_color": "#fff",
   "description": "Control that pets snacks (in and out)"
 }

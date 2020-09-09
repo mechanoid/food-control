@@ -11,6 +11,13 @@ class EmojiSlider extends HTMLElement {
     this.slider.addEventListener('change', e => {
       this.activateEmoji(this.slider.value)
     })
+
+    this.emojies.forEach((emoji, index) => {
+      emoji.addEventListener('click', e => {
+        this.activateEmoji(index)
+        this.slider.value = index
+      })
+    })
   }
 
   activateEmoji (index) {

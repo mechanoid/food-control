@@ -1,5 +1,7 @@
 extend layout
 
+- const qualities = ['😭','🤨','😍']
+
 block body
   h1 Food Control
 
@@ -9,4 +11,10 @@ block body
     li.button.grid-item
       a(href="#").button-text 🍿
 
-  = JSON.stringify(defecations, false, 2)
+  if defecations
+    table.defecations
+      each defecation in defecations
+        tr
+          td= defecation.date
+          td= qualities[defecation.quality]
+

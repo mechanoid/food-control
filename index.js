@@ -25,15 +25,13 @@ export default config => {
       const result = await client.query('SELECT * FROM "defecations" LIMIT 300 OFFSET 0')
       const defecations = { results: (result) ? result.rows : null }
 
-      res.redirect('/', { defecations })
+      res.render('index', { defecations })
     } catch (error) {
       console.error(error)
       res.render('/defecations/new', { error })
     } finally {
       client.release()
     }
-
-    res.render('index')
   })
 
   app.get('/defecations/new', (req, res) => {

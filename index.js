@@ -3,47 +3,42 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
+import basicAuth from 'express-basic-auth'
 import pool from './lib/db.js'
 
 import 'pug'
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
-
+const isProd = process.env.NODE_ENV === 'production'
 const app = express()
 app.use(helmet())
 app.use(morgan('combined'))
 app.use(cookieParser())
 app.use('/assets', express.static('./assets'))
-app.use('/manifest.webmanifest', express.static('./manifest.webmanifest'))
+// app.use('/manifest.webmanifest', express.static('./manifest.webmanifest'))
 app.set('view engine', 'pug')
 
 app.use((req, res, next) => {
-  // very poor auth, just to protect the PWA a bit.
-  if (req.query.initAuth === process.env.INIT_SECRET) {
-    res.cookie('app-secret', process.env.APP_SECRET, { httpOnly: true, maxAge: 365 * 24 * 60 * 60 * 1000 })
-    return next()
-  } else if (req.cookies['app-secret'] === process.env.APP_SECRET) {
+  if (req.cookies['app-secret'] === process.env.APP_SECRET) {
     console.log('cookie auth is ok')
     return next()
   }
 
-  res.sendStatus(401)
+  return basicAuth({
+    users: { someuser: 'somepassword' },
+    challenge: true,
+    realm: 'Imb4T3st4pp'
+  })(req, res, next)
+})
+
+app.use((req, res, next) => {
+  if (!req.cookies['app-secret']) {
+    res.cookie('app-secret', process.env.APP_SECRET, { httpOnly: true, maxAge: 365 * 24 * 60 * 60 * 1000, signed: isProd, secure: isProd, sameSite: 'strict' })
+  }
+  next()
 })
 
 export default config => {
-  console.log('config', config)
-  app.get('/manifest.webmanifest', (req, res) => {
-    const startUrl = req.query.initAuth ? `${process.env.INIT_AUTH_URL}${req.query.initAuth}` : '.'
-    res.send(JSON.stringify({
-      name: 'Food Control',
-      start_url: startUrl,
-      display: 'fullscreen',
-      background_color: '#fff',
-      description: 'Control that pets snacks (in and out)',
-      lang: 'de-DE',
-      orientation: 'portrait'
-    }))
-  })
   app.get('/', async (req, res) => {
     let client
     try {

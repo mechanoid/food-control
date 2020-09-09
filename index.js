@@ -18,7 +18,21 @@ app.set('view engine', 'pug')
 export default config => {
   console.log('config', config)
 
-  app.get('/', (req, res) => {
+  app.get('/', async (req, res) => {
+    let client
+    try {
+      client = await pool.connect()
+      const result = await client.query('SELECT * FROM "defecations" LIMIT 300 OFFSET 0')
+      const defecations = { results: (result) ? result.rows : null }
+
+      res.redirect('/', { defecations })
+    } catch (error) {
+      console.error(error)
+      res.render('/defecations/new', { error })
+    } finally {
+      client.release()
+    }
+
     res.render('index')
   })
 

@@ -13,7 +13,7 @@ const isProd = process.env.NODE_ENV === 'production'
 const app = express()
 app.use(helmet())
 app.use(morgan('combined'))
-app.use(cookieParser())
+app.use(cookieParser(process.env.COOKIE_SECRET))
 app.use('/assets', express.static('./assets'))
 // app.use('/manifest.webmanifest', express.static('./manifest.webmanifest'))
 app.set('view engine', 'pug')

@@ -43,10 +43,12 @@ export default config => {
     let client
     try {
       client = await pool.connect()
-      const result = await client.query('SELECT * FROM "defecations" ORDER BY defecation_date DESC LIMIT 300 OFFSET 0')
-      const defecations = (result) ? result.rows : null
+      const defecationsResult = await client.query('SELECT * FROM "defecations" ORDER BY defecation_date DESC, id ASC LIMIT 300 OFFSET 0')
+      const defecations = defecationsResult ? defecationsResult.rows : null
+      const snacksResult = await client.query('SELECT * FROM "snacks" ORDER BY date DESC, id ASC LIMIT 300 OFFSET 0')
+      const snacks = snacksResult ? snacksResult.rows : null
 
-      res.render('index', { defecations })
+      res.render('index', { defecations, snacks })
     } catch (error) {
       console.error(error)
       res.render('index', { error })
@@ -75,6 +77,43 @@ export default config => {
     } catch (error) {
       console.error(error)
       res.render('defecations/new', { error })
+    } finally {
+      client.release()
+    }
+  })
+
+  app.get('/snacks/new', async (req, res) => {
+    let client
+    try {
+      client = await pool.connect()
+      const result = await client.query('SELECT snack FROM "snacks" GROUP BY snack')
+      const snackGroups = (result) ? result.rows : null
+
+      res.render('snacks/new', { snackGroups, date: new Date() })
+    } catch (error) {
+      console.error(error)
+      res.render('snacks/new', { error })
+    } finally {
+      client.release()
+    }
+  })
+
+  app.post('/snacks', urlencodedParser, async (req, res) => {
+    const { snack, newSnack, date } = req.body
+    console.log(snack, newSnack, date)
+
+    let client
+
+    try {
+      client = await pool.connect()
+      const result = await client.query('INSERT INTO snacks(snack, date) VALUES($1, $2) RETURNING *', [newSnack || snack, date])
+      const results = { results: (result) ? result.rows : null }
+      console.log(results)
+
+      res.redirect('/')
+    } catch (error) {
+      console.error(error)
+      res.render('snacks/new', { error })
     } finally {
       client.release()
     }

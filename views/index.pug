@@ -9,7 +9,7 @@ block body
     li.button.grid-item
       a(href="/defecations/new").button-text 💩
     li.button.grid-item
-      a(href="#").button-text 🍿
+      a(href="/snacks/new").button-text 🍿
 
   .overview.grid
 
@@ -31,8 +31,8 @@ block body
           thead
             th Date
             th Snack
-          //- tbody
-          //-   each defecation in defecations
-          //-     tr
-          //-       td= new Date(defecation.defecation_date).toLocaleDateString('de-DE')
-          //-       td= qualities[defecation.quality]
+          tbody
+            each snack in snacks
+              tr
+                td= new Date(snack.date).toLocaleDateString('de-DE')
+                td= snack.snack

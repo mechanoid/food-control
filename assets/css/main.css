@@ -147,6 +147,7 @@ table {
   width: 100%;
   border-collapse:collapse;
   border-spacing: 0;
+  font-size: 1.5rem;
 }
 table td {
   text-align: center;
@@ -157,6 +158,24 @@ table td {
   justify-self: stretch;
 }
 
+select {
+  width: 100%;
+  padding: .5rem 1rem;
+  font-size: 1.5rem;
+}
+
+.standalone-text-field input {
+  display: block;
+  width: 100%;
+  padding: .5rem 1rem;
+  font-size: 1.5rem;
+  box-sizing: border-box;
+}
+.standalone-text-field label {
+  display: block;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
 
 /* RANGE SLIDER, Source => https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ */
 

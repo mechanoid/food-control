@@ -43,9 +43,9 @@ export default config => {
     let client
     try {
       client = await pool.connect()
-      const defecationsResult = await client.query('SELECT * FROM "defecations" ORDER BY defecation_date DESC, id ASC LIMIT 300 OFFSET 0')
+      const defecationsResult = await client.query('SELECT * FROM "defecations" ORDER BY defecation_date DESC, id ASC LIMIT 15 OFFSET 0')
       const defecations = defecationsResult ? defecationsResult.rows : null
-      const snacksResult = await client.query('SELECT * FROM "snacks" ORDER BY date DESC, id ASC LIMIT 300 OFFSET 0')
+      const snacksResult = await client.query('SELECT * FROM "snacks" ORDER BY date DESC, id ASC LIMIT 15 OFFSET 0')
       const snacks = snacksResult ? snacksResult.rows : null
 
       res.render('index', { defecations, snacks })

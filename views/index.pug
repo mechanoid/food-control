@@ -11,10 +11,10 @@ block body
     li.button.grid-item
       a(href="/snacks/new").button-text 🍿
 
-  .overview.grid
+  .overview
 
     if defecations
-      shit-tivities.grid-item
+      shit-tivities
         h3 💩-tivities
         table.defecations
           thead
@@ -25,7 +25,7 @@ block body
               tr
                 td= new Date(defecation.defecation_date).toLocaleDateString('de-DE')
                 td= qualities[defecation.quality]
-      snack-tivities.grid-item
+      snack-tivities
         h3 🍿-tivities
         table.snacks
           thead

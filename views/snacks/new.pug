@@ -3,18 +3,17 @@ extend ../layout
 block body
   h1 Register new 🍿
 
-    h2 Select Existing:
     form(action="/snacks" method="POST")
-
       if snackGroups
-        .row
+        .row.standalone-text-field
+          label Select existing
           select(name="snack")
             <option value=""></option>
             each snackGroup in snackGroups
               option(value=snackGroup.snack)= snackGroup.snack
 
       .row.standalone-text-field
-        label New snack
+        label or create a new Snack
         input(type="text" name="newSnack" placeholder="article name")
 
       .row.center

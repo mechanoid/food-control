@@ -112,11 +112,19 @@ input[type=date] {
 }
 
 .button-text {
+  display: inline-block;
   text-decoration: none;
   font-size: 5rem;
   font-size: 30vw;
   text-shadow: 1px 1px 20px #ac9081;
   padding: 1vw 5vw;
+}
+
+@media (min-width: 1024px) {
+  .button-text {
+    font-size: 7rem !important;
+    padding: 3vw 5vw;
+  }
 }
 
 .choice {
@@ -134,6 +142,8 @@ input[type=date] {
   border-radius: 1rem;
   box-shadow: inset 0px 0px 22px 10px rgba(172,144,129,0.31);
 }
+
+
 
 .choice:checked+label {
   border: 10px solid #E4297C;

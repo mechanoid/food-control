@@ -28,6 +28,25 @@ emoji-slider .grid-item {
   transition: font-size .5s;
 }
 
+a.cancel  {
+  box-sizing: border-box;
+  display: block;
+  text-decoration: none;
+  background-color: rgb(184, 184, 184);
+  color: black;
+  margin-top: .5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 0;
+  color: #fff;
+  width: 100%;
+  font-size: 2rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+
 button[type=submit], input[type=submit]  {
   -webkit-appearance: none;
   background-color: #E4297C;
@@ -179,6 +198,8 @@ select {
   font-weight: bold;
   font-size: 1.5rem;
 }
+
+
 
 /* RANGE SLIDER, Source => https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ */
 

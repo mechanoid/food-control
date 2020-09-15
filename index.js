@@ -18,8 +18,10 @@ app.use('/assets', express.static('./assets'))
 app.use('/manifest.webmanifest', express.static('./manifest.webmanifest'))
 app.set('view engine', 'pug')
 
+const cookies = req => isProd ? req.signedCookies : req.cookies // use only signed cookies in prod
+
 app.use((req, res, next) => {
-  if (req.cookies['app-secret'] === process.env.APP_SECRET) {
+  if (cookies(req)['app-secret'] && cookies(req)['app-secret'] === process.env.APP_SECRET) {
     console.log('cookie auth is ok')
     return next()
   }
@@ -32,8 +34,8 @@ app.use((req, res, next) => {
 })
 
 app.use((req, res, next) => {
-  if (!req.cookies['app-secret']) {
-    res.cookie('app-secret', process.env.APP_SECRET, { httpOnly: true, maxAge: 365 * 24 * 60 * 60 * 1000, signed: isProd, secure: isProd, sameSite: 'strict' })
+  if (!cookies(req)['app-secret']) {
+    res.cookie('app-secret', process.env.APP_SECRET, { httpOnly: true, maxAge: 365 * 24 * 60 * 60 * 1000, signed: isProd, secure: isProd, sameSite: 'Strict' })
   }
   next()
 })

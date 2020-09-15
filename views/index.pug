@@ -23,7 +23,8 @@ block body
           tbody
             each defecation in defecations
               tr
-                td= new Date(defecation.defecation_date).toLocaleDateString('de-DE')
+
+                td= formattedDate(defecation.defecation_date)
                 td= qualities[defecation.quality]
       snack-tivities
         h3 🍿-tivities
@@ -34,5 +35,5 @@ block body
           tbody
             each snack in snacks
               tr
-                td= new Date(snack.date).toLocaleDateString('de-DE')
+                td= formattedDate(snack.date)
                 td= snack.snack

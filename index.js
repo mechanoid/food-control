@@ -20,6 +20,8 @@ app.set('view engine', 'pug')
 
 const cookies = req => isProd ? req.signedCookies : req.cookies // use only signed cookies in prod
 
+const formattedDate = date => new Intl.DateTimeFormat('de-DE').format(date)
+
 app.use((req, res, next) => {
   if (cookies(req)['app-secret'] && cookies(req)['app-secret'] === process.env.APP_SECRET) {
     console.log('cookie auth is ok')
@@ -50,10 +52,10 @@ export default config => {
       const snacksResult = await client.query('SELECT * FROM "snacks" ORDER BY date DESC, id DESC LIMIT 15 OFFSET 0')
       const snacks = snacksResult ? snacksResult.rows : null
 
-      res.render('index', { defecations, snacks })
+      res.render('index', { defecations, snacks, formattedDate })
     } catch (error) {
       console.error(error)
-      res.render('index', { error })
+      res.render('index', { error, formattedDate })
     } finally {
       client.release()
     }
@@ -78,7 +80,7 @@ export default config => {
       res.redirect('/')
     } catch (error) {
       console.error(error)
-      res.render('defecations/new', { error })
+      res.render('defecations/new', { error, formattedDate })
     } finally {
       client.release()
     }
@@ -91,10 +93,10 @@ export default config => {
       const result = await client.query('SELECT snack FROM "snacks" GROUP BY snack')
       const snackGroups = (result) ? result.rows : null
 
-      res.render('snacks/new', { snackGroups, date: new Date() })
+      res.render('snacks/new', { snackGroups, date: new Date(), formattedDate })
     } catch (error) {
       console.error(error)
-      res.render('snacks/new', { error })
+      res.render('snacks/new', { error, formattedDate })
     } finally {
       client.release()
     }
